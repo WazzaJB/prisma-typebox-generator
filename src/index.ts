@@ -13,7 +13,8 @@ generatorHandler({
     };
   },
   async onGenerate(options) {
-    const payload = transformDMMF(options.dmmf);
+    const config = options.generator.config;
+    const payload = transformDMMF(options.dmmf, config);
     if (options.generator.output) {
       const outputDir =
         // This ensures previous version of prisma are still supported
@@ -47,7 +48,9 @@ generatorHandler({
             fsPromises.push(
               fs.promises.appendFile(
                 barrelFile,
-                `export * from './${n.name}';\n`,
+                `export * from './${n.name}${
+                  config?.esmImports ? '.js' : ''
+                }';\n`,
                 { encoding: 'utf-8' },
               ),
             );
@@ -66,7 +69,9 @@ generatorHandler({
               fsPromises.push(
                 fs.promises.appendFile(
                   barrelFile,
-                  `export * from './${n.name}Input';\n`,
+                  `export * from './${n.name}Input${
+                    config?.esmImports ? '.js' : ''
+                  }';\n`,
                   { encoding: 'utf-8' },
                 ),
               );

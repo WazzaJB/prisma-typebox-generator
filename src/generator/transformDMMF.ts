@@ -108,7 +108,7 @@ export const transformEnum = (enm: DMMF.DatamodelEnum) => {
   ].join('\n');
 };
 
-export function transformDMMF(dmmf: DMMF.Document) {
+export function transformDMMF(dmmf: DMMF.Document, config: any) {
   const { models, enums } = dmmf.datamodel;
   const importStatements = new Set([
     'import {Type, Static} from "@sinclair/typebox"',
@@ -133,7 +133,11 @@ export function transformDMMF(dmmf: DMMF.Document) {
         if (raw.match(re)) {
           raw = raw.replace(re, enm.name);
           inputRaw = inputRaw.replace(re, enm.name);
-          importStatements.add(`import { ${enm.name} } from './${enm.name}'`);
+          importStatements.add(
+            `import { ${enm.name} } from './${enm.name}${
+              config?.esmImports ? '.js' : ''
+            }'`,
+          );
         }
       });
 
