@@ -1,12 +1,12 @@
 {
-  "name": "prisma-typebox-generator",
-  "version": "2.0.2",
+  "name": "esm-prisma-typebox-generator",
+  "version": "2.0.3",
   "main": "dist/index.js",
   "license": "MIT",
   "files": [
     "dist"
   ],
-  "description": "Typebox generator for prisma schema",
+  "description": "Typebox generator for prisma schema, hotfixed for ESM",
   "author": {
     "name": "Ade Yahya Prasetyo@gmail.com",
     "email": "adeyahyaprasetyo@gmail.com"
