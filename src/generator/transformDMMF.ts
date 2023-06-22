@@ -32,8 +32,9 @@ const transformField = (field: DMMF.Field) => {
   }
 
   if ((!field.isRequired || field.hasDefaultValue) && !field.isId) {
-    tokens.splice(1, 0, 'Type.Optional(');
-    tokens.splice(tokens.length, 0, ')');
+    // Prismas inputs are undefined (Type.Optional) but responses are nullable
+    tokens.splice(1, 0, 'Type.Union([');
+    tokens.splice(tokens.length, 0, ', Type.Null()])');
     inputTokens.splice(1, 0, 'Type.Optional(');
     inputTokens.splice(inputTokens.length, 0, ')');
   }
