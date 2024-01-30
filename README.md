@@ -6,7 +6,7 @@
 
 # Prisma Typebox Generator
 
-A generator, which takes a Prisma 2 `schema.prisma` and generates a typebox snippets.
+A generator, which takes a Prisma 2 `schema.prisma` and generates typebox snippets.
 
 ## Getting Started
 

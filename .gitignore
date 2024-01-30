@@ -45,4 +45,5 @@ dist/
 
 # Prisma related files
 dmmf.json
+prisma/typebox
 

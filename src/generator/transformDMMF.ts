@@ -9,8 +9,10 @@ const transformField = (field: DMMF.Field) => {
     tokens.push('Type.Number()');
   } else if (['BigInt'].includes(field.type)) {
     tokens.push('Type.Integer()');
-  } else if (['String', 'DateTime', 'Json', 'Date'].includes(field.type)) {
+  } else if (['String', 'Json'].includes(field.type)) {
     tokens.push('Type.String()');
+  } else if (['DateTime', 'Date'].includes(field.type)) {
+    tokens.push("Type.Unsafe<Date>({ type: 'string', format: 'date' })");
   } else if (field.type === 'Boolean') {
     tokens.push('Type.Boolean()');
   } else {
@@ -46,7 +48,7 @@ const transformField = (field: DMMF.Field) => {
   };
 };
 
-const transformFields = (fields: DMMF.Field[]) => {
+const transformFields = (fields: readonly DMMF.Field[]) => {
   let dependencies = new Set();
   const _fields: string[] = [];
   const _inputFields: string[] = [];
@@ -66,7 +68,7 @@ const transformFields = (fields: DMMF.Field[]) => {
   };
 };
 
-const transformModel = (model: DMMF.Model, models?: DMMF.Model[]) => {
+const transformModel = (model: DMMF.Model, models?: readonly DMMF.Model[]) => {
   const fields = transformFields(model.fields);
   let raw = [
     `${models ? '' : `export const ${model.name} = `}Type.Object({\n\t`,
